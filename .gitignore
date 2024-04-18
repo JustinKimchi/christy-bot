@@ -1,0 +1,15 @@
+# Dependencies
+**/__pycache__/**
+
+# Environment
+.env
+
+/data/
+
+query.py
+
+script.py
+
+.png
+
+db/
