@@ -13,6 +13,7 @@ class ChloeBot(commands.Bot):
 
   async def setup_hook(self):
     await self.load_extension(f"cogs.misc")
+    await self.load_extension(f"cogs.roles")
 
     await bot.tree.sync()
 
