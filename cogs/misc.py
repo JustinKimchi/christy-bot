@@ -31,9 +31,10 @@ class Misc(commands.Cog):
                 'Outlook not so good',
                 'Very doubtful']
 
-    embed = discord.Embed(
+    embed = discord.Embed (
       title = "Magic 8 Ball",
-      description = "Ask the magic 8 ball a question!"
+      description = "Ask the magic 8 ball a question!",
+      colour = discord.Colour.brand_green()
     )
 
     embed.add_field(name = "Question:", value = question)
