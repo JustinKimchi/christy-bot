@@ -45,19 +45,19 @@ class Builds(commands.Cog):
           db.execute(query.BUILD_INSERT, name, message.id)
           break
 
-  @app_commands.command(name="requestaddbuild", description="Request to add a build to the database.")
-  async def requestaddbuild(self, interaction: discord.Interaction, imageurl: str, name: str) -> None:
+  @app_commands.command(name="requestaddbuild", description="Request to add a build to the database by attaching an image.")
+  async def requestaddbuild(self, interaction: discord.Interaction, image: discord.Attachment, name: str) -> None:
     # Check to make sure character name is valid
     alias = name.lower()
     charName = db.fetch(query.BUILD_NAME_QUERY, alias)
 
     if len(charName) < 1:
-      await interaction.response.send_message(f"Could not recognize the character {name}. Your character may not be included in database yet!")
+      await interaction.response.send_message(f"I don't recognize {name}. Try using the exact name - otherwise, your character may not be in my database yet!")
       return
 
     # Send message to approval channel
     channel = self.bot.get_channel(self.pending_builds)
-    message = await channel.send(imageurl)
+    message = await channel.send(content=image)
 
     # Add to pending builds table
     db.execute(query.PENDING_BUILD_INSERT, charName[0][0], message.id)
@@ -83,8 +83,8 @@ class Builds(commands.Cog):
     # Execute query, respond with results
     build = db.fetchWithTuple(buildquery, tuple(parameters))
 
-    if len(build) == 0:
-      await interaction.response.send_message("No builds in database with matching parameters.")  
+    if len(build) == 0 or len(build[0]) == 0:
+      await interaction.response.send_message("No builds for this character yet!")  
 
     # Send the build in channel
     channel = self.bot.get_channel(self.accepted_builds)

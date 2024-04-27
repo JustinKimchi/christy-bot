@@ -16,10 +16,19 @@ class ChristyBot(commands.Bot):
       if filename.endswith(".py"):
         await self.load_extension(f"cogs.{filename[:-3]}")
 
-    await bot.tree.sync()
-
   async def on_ready(self):
     print("Bot is online")
 
 bot = ChristyBot()
+
+@bot.command()
+async def sync(ctx):
+  print("sync command")
+  if ctx.author.id == 277851099850080258:
+    print('syncing')
+    await bot.tree.sync()
+    await ctx.send('Command tree synced.')
+  else:
+    await ctx.send('You must be the owner to use this command!')
+
 bot.run(token)

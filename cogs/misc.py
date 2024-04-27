@@ -40,8 +40,6 @@ class Misc(commands.Cog):
     embed.add_field(name = "Question:", value = question)
     embed.add_field(name = "Answer:", value = random.choice(responses))
 
-    #embed.set_thumbnail(url="https://cdn.discordapp.com/attachments/1072673373001355359/1072679485889056818/Chloe.png")
-
     await interaction.response.send_message(embed = embed)
 
 async def setup(bot) -> None:
