@@ -102,7 +102,7 @@ class Guild(commands.Cog):
       missedHits += f"Date: {missedDate} [ Misses: {misses} ]\n"
 
     embed.add_field(name = "Missed hits:", value = missedHits)
-    await interaction.response.send_message(embed = embed)
+    await thread.send(embed = embed)
 
 async def setup(bot) -> None:
   await bot.add_cog(Guild(bot))
