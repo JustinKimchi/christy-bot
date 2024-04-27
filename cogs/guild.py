@@ -104,5 +104,7 @@ class Guild(commands.Cog):
     embed.add_field(name = "Missed hits:", value = missedHits)
     await thread.send(embed = embed)
 
+    await interaction.response.send_message(f"Documented miss for {member.mention}")
+
 async def setup(bot) -> None:
   await bot.add_cog(Guild(bot))
