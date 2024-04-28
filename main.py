@@ -34,7 +34,7 @@ async def sync(ctx):
     await ctx.send('You must be the owner to use this command!')
 
 @bot.command()
-async def query(ctx, query):
+async def query(ctx, *, query):
   if ctx.author.id == 277851099850080258:
     print(f"Executing query: {query}")
     db.execute(query)
