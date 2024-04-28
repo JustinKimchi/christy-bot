@@ -80,6 +80,7 @@ class Roles(commands.Cog):
             print(f"Removed role {role} for user {member}.")
 
   @app_commands.command(name="setrolemessage", description="Sets up role reaction message for the server.")
+  @app_commands.default_permissions(manage_roles=True)
   async def setrolemessage(self, interaction: discord.Interaction, channel_id: str, message_id: str) -> None:
     guild_id = interaction.guild_id
 
@@ -94,6 +95,7 @@ class Roles(commands.Cog):
     await interaction.response.send_message("Role message set!")
 
   @app_commands.command(name="addreactionrole", description="Add a reaction + role pairing for role reaction.")
+  @app_commands.default_permissions(manage_roles=True)
   async def addreactionrole(self, interaction: discord.Interaction, emoji: str, role: str) -> None:
     guild_id = interaction.guild_id
 
@@ -138,6 +140,7 @@ class Roles(commands.Cog):
     await interaction.response.send_message("Reaction role added!")
 
   @app_commands.command(name="removereactionrole", description="Remove a reaction + role pairing for role reaction.")
+  @app_commands.default_permissions(manage_roles=True)
   async def removereactionrole(self, interaction: discord.Interaction, emoji: str) -> None:
     guild_id = interaction.guild_id
 

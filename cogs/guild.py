@@ -29,6 +29,7 @@ class Guild(commands.Cog):
     await interaction.response.send_message("This channel will now be the source for member threads!")
 
   @app_commands.command(name="addmember", description="Adds a member to the database.")
+  @app_commands.default_permissions(manage_roles=True)
   async def addmember(self, interaction: discord.Interaction, member: discord.Member) -> None:
     # Fetch thread channel
     channel = db.fetch(query.GUILD_THREAD_CHANNEL_QUERY, str(interaction.guild_id))
@@ -58,6 +59,7 @@ class Guild(commands.Cog):
     await interaction.response.send_message("Thread created!")
 
   @app_commands.command(name="documentmiss", description="Document missed hits for a member.")
+  @app_commands.default_permissions(manage_roles=True)
   async def documentmiss(self, interaction: discord.Interaction, member: discord.Member, missed: int) -> None:
     # Delete old misses
     db.execute(query.MISSES_DELETE_OLD)

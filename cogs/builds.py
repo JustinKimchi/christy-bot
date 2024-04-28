@@ -62,7 +62,7 @@ class Builds(commands.Cog):
     # Add to pending builds table
     db.execute(query.PENDING_BUILD_INSERT, charName[0][0], message.id)
 
-    await interaction.response.send_message("Request sent!")
+    await interaction.response.send_message("Request sent!", ephemeral=True)
 
   @app_commands.command(name="build", description="Query for a build from the database.")
   async def build(self, interaction: discord.Interaction, name: str):
@@ -70,7 +70,7 @@ class Builds(commands.Cog):
     foundName = db.fetch(query.BUILD_NAME_QUERY, name.lower())
 
     if len(foundName) == 0:
-      await interaction.response.send_message(f"No character with name {name} found!")
+      await interaction.response.send_message(f"No character with name {name} found!", ephemeral=True)
       return
 
     foundName = foundName[0][0]
@@ -84,7 +84,7 @@ class Builds(commands.Cog):
     build = db.fetchWithTuple(buildquery, tuple(parameters))
 
     if len(build) == 0 or len(build[0]) == 0:
-      await interaction.response.send_message("No builds for this character yet!")  
+      await interaction.response.send_message("No builds for this character yet!", ephemeral=True)  
 
     # Send the build in channel
     channel = self.bot.get_channel(self.accepted_builds)
@@ -99,7 +99,6 @@ class Builds(commands.Cog):
     embed.set_image(url=message.content)
 
     await interaction.response.send_message(embed=embed)
-      
 
 async def setup(bot) -> None:
   await bot.add_cog(Builds(bot))

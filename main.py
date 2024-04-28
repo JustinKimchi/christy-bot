@@ -4,6 +4,8 @@ from discord.ext import commands
 import os
 from dotenv import load_dotenv
 
+from cogs.db import db
+
 load_dotenv()
 token = os.getenv("DISCORD_TOKEN")
 
@@ -30,5 +32,10 @@ async def sync(ctx):
     await ctx.send('Command tree synced.')
   else:
     await ctx.send('You must be the owner to use this command!')
+
+@bot.command()
+async def query(ctx, query):
+  if ctx.author.id == 277851099850080258:
+    db.execute(query)
 
 bot.run(token)
