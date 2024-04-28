@@ -100,5 +100,29 @@ class Builds(commands.Cog):
 
     await interaction.response.send_message(embed=embed)
 
+  @app_commands.command(name="addname", description="Add a name to the database.")
+  @app_commands.default_permissions(manage_roles=True)
+  async def addname(self, interaction: discord.Interaction, name: str):
+    # Check if database already has a name
+    foundName = db.fetch(query.BUILD_NAME_QUERY, name.lower())
+
+    if len(foundName) != 0:
+      await interaction.response.send_message(f"{foundName[0][0]} is already in the database!", ephemeral=True)
+      return
+    
+    db.execute(query.BUILD_NAME_INSERT, name.lower(), name)
+
+  @app_commands.command(name="addalias", description="Add an alias to the database paired with a name.")
+  @app_commands.default_permissions(manage_roles=True)
+  async def addalias(self, interaction: discord.Interaction, name: str, alias: str):
+    # Check if database already has an alias
+    foundName = db.fetch(query.BUILD_NAME_QUERY, name.lower())
+
+    if len(foundName) != 0:
+      await interaction.response.send_message(f"{foundName[0][0]} is already in the database!", ephemeral=True)
+      return
+
+    db.execute(query.BUILD_NAME_INSERT, alias.lower(), name)
+
 async def setup(bot) -> None:
   await bot.add_cog(Builds(bot))

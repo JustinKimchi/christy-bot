@@ -23,6 +23,7 @@ class Guild(commands.Cog):
     db.execute(query.GUILD_MEMBER_DELETE, str(event.thread_id))
 
   @app_commands.command(name="definethreadchannel", description="Sets the channel this command is set in to be the thread channel.")
+  @app_commands.default_permissions(manage_roles=True)
   async def definethreadchannel(self, interaction: discord.Interaction) -> None:
     db.execute(query.GUILD_THREAD_CHANNEL_INSERT, str(interaction.guild_id), str(interaction.channel_id))
 
