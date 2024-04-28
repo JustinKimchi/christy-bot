@@ -111,6 +111,7 @@ class Builds(commands.Cog):
       return
     
     db.execute(query.BUILD_NAME_INSERT, name.lower(), name)
+    await interaction.response.send_message("Added name!", ephemeral=True)
 
   @app_commands.command(name="addalias", description="Add an alias to the database paired with a name.")
   @app_commands.default_permissions(manage_roles=True)
@@ -123,6 +124,7 @@ class Builds(commands.Cog):
       return
 
     db.execute(query.BUILD_NAME_INSERT, alias.lower(), name)
+    await interaction.response.send_message("Added alias!", ephemeral=True)
 
 async def setup(bot) -> None:
   await bot.add_cog(Builds(bot))
