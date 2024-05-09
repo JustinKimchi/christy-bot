@@ -39,7 +39,8 @@ class Builds(commands.Cog):
 
           # Send image into builds channel
           buildsChannel = self.bot.get_channel(self.accepted_builds)
-          message = await buildsChannel.send(content=pendingMessage.content)
+          if pendingMessage.attachments:
+            message = await buildsChannel.send(file= await pendingMessage.attachments[0].to_file())
 
           # Add pending build to database
           db.execute(query.BUILD_INSERT, name, message.id)
@@ -57,7 +58,7 @@ class Builds(commands.Cog):
 
     # Send message to approval channel
     channel = self.bot.get_channel(self.pending_builds)
-    message = await channel.send(content=image)
+    message = await channel.send(file= await image.to_file())
 
     # Add to pending builds table
     db.execute(query.PENDING_BUILD_INSERT, charName[0][0], message.id)
@@ -96,7 +97,10 @@ class Builds(commands.Cog):
       title=foundName
     )
 
-    embed.set_image(url=message.content)
+    if message.attachments:
+      embed.set_image(url=message.attachments[0].url)
+    else:
+      await interaction.response.send_message("There was an error fetching the build image.", ephemeral=True)
 
     await interaction.response.send_message(embed=embed)
 
