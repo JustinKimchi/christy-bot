@@ -121,7 +121,7 @@ class Builds(commands.Cog):
   @app_commands.default_permissions(manage_roles=True)
   async def addalias(self, interaction: discord.Interaction, name: str, alias: str):
     # Check if database already has an alias
-    foundName = db.fetch(query.BUILD_NAME_QUERY, name.lower())
+    foundName = db.fetch(query.BUILD_NAME_QUERY, alias.lower())
 
     if len(foundName) != 0:
       await interaction.response.send_message(f"{foundName[0][0]} is already in the database!", ephemeral=True)
