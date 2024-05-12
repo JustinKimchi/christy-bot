@@ -53,7 +53,7 @@ class Builds(commands.Cog):
     charName = db.fetch(query.BUILD_NAME_QUERY, alias)
 
     if len(charName) < 1:
-      await interaction.response.send_message(f"I don't recognize {name}. Try using the exact name - otherwise, your character may not be in my database yet!")
+      await interaction.response.send_message(f"I don't recognize {name}. Try using the exact name - otherwise, your character may not be in my database yet!", ephemeral=True)
       return
 
     # Send message to approval channel
